@@ -47,14 +47,11 @@ const MovieList = () => {
     setCurrentPage(selectedPage.selected + 1);
   };
 
-  // const getImage = async (id) => {
-  //   const response = await axiosInstance.get(
-  //     `${process.env.NEXT_PUBLIC_BASE_URL}/movies/image/${id}`
-  //   );
-    
-  //   return response;
-  // };
-  // getImage();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
+
   return (
     <div style={{ paddingBottom: "220px" }}>
       {movie?.length ? (
@@ -80,15 +77,15 @@ const MovieList = () => {
               <div>
                 <h2 className="logouttitle mb-0">Logout</h2>
               </div>
-              <Link href="/login">
-                <img
-                  src={Group?.src}
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                  }}
-                />
-              </Link>
+              <img
+                src={Group?.src}
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  cursor: "pointer"
+                }}
+                onClick={() => handleLogout()}
+              />
             </div>
           </div>
 

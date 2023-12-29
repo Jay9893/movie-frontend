@@ -11,6 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const router = useRouter()
+  const [isLoading, setLoading] = useState(false);
 
   const handleUser = async () => {
     if (!email || !password) {
@@ -18,16 +19,22 @@ const Login = () => {
       return;
     }
     try {
+      setLoading(true);
       await axiosInstance.post("/users/login", {
         email,
         password,
       }).then((res) => {
+        setLoading(false);
         if(res.data.token) {
           localStorage.setItem("token", res.data.token)
           router.push("/movies")
         }
+      }).catch((err) => {
+        setLoading(false);
+        setError(err.response.data.error);
       });
     } catch (error) {
+      setLoading(false);
       setError(error.response.data.error);
     }
   };
@@ -73,7 +80,7 @@ const Login = () => {
         {error && <p className="error-message">{error}</p>}
         <div>
           <button type="button" className="submitbutton" onClick={handleUser}>
-            Login
+            {isLoading ? "Loadding...!" : "Login" }
           </button>
         </div>
       </div>

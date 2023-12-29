@@ -29,7 +29,9 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "out/types/**/*.ts"
+    "out/types/**/*.ts",
+    "netlify.toml",
+    "_redirects"
   ],
   "exclude": [
     "node_modules"
